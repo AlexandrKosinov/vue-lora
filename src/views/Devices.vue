@@ -5,6 +5,7 @@
             <thead>
             <tr>
                 <th scope="col">Name</th>
+                <th scope="col">Description</th>
                 <th scope="col">Units</th>
                 <th scope="col">DataList</th>
             </tr>
@@ -12,6 +13,7 @@
             <tbody>
             <tr v-for="device in listDevice" :key="device.id">
                 <td>{{device.name}}</td>
+                <td>{{device.description}}</td>
                 <td>{{device.units}}</td>
                 <td><a href="#" @click="goToData(device.id, device.name)" >data</a></td>
             </tr>

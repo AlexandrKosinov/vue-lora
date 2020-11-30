@@ -1,6 +1,6 @@
 <template>
     <div id="nav">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand navbar-light bg-light">
             <h5><router-link class="navbar-brand" to="/">Home</router-link></h5>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -8,12 +8,17 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li v-if="auth"   class="nav-item">
-                        <h5 class="nav-link"><router-link to="/nets">Lora nets</router-link></h5>
-                    </li>
-                    <li v-if="auth"   class="nav-item">
-                        <h5 class="nav-link" @click="signOut"><router-link to="/">Sign Out</router-link></h5>
-                    </li>
+                    <template v-if="auth">
+                        <li class="nav-item">
+                            <h5 class="nav-link"><router-link to="/nets">Lora nets</router-link></h5>
+                        </li>
+                        <li v-if="network_map"  class="nav-item">
+                            <h5 class="nav-link"><router-link to="/netmap">Map</router-link></h5>
+                        </li>
+                        <li class="nav-item">
+                            <h5 class="nav-link" @click="signOut"><router-link to="/">Sign Out</router-link></h5>
+                        </li>
+                    </template>
                     <li v-else   class="nav-item">
                         <h5 class="nav-link"><router-link to="/login">Sign In</router-link></h5>
                     </li>
@@ -41,6 +46,12 @@
                     return true
                 }
                 return false
+            },
+            network_map() {
+                if(this.$store.getters.getNetworkId  > 0) {
+                    return true
+                }
+                return false
             }
         },
         created() {
@@ -59,8 +70,6 @@
                 if(this.userName != 'guest') {
                     this.loadUserId();
                 }
-                // var message = 'Name: ' + this.userName + '  Id: ' + this.userId
-                // console.log(message);
             },
             async signOut() {
                 var token = 'Token ' + sessionStorage.getItem("auth_token");
@@ -74,6 +83,7 @@
                 });
                 this.$store.commit('setUserName', 'guest');
                 this.$store.commit('setUserId', 0);
+                this.$store.commit('setNetworkId', 0);
                 this.$store.commit('setToken', '');
                 sessionStorage.removeItem("auth_token");
                 sessionStorage.removeItem("auth_name");

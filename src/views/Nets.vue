@@ -57,7 +57,8 @@
                 // console.log(this.token)
             },
             goToGetaways(id, name) {
-                this.$router.push({name: 'Getaways', params: {id: id, name: name}})
+                this.$store.commit('setNetworkId', id);
+                this.$router.push({name: 'Getaways', params: {id: id, name: name}});
             }
         }
     }

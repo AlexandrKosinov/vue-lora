@@ -6,6 +6,8 @@ import Getaways from '../views/Getaways.vue'
 import Devices from '../views/Devices.vue'
 import Data from '../views/Data.vue'
 import Login from '../views/Login.vue'
+import NetMap from '../views/NetMap.vue'
+import Chart from '../views/Chart.vue'
 
 Vue.use(VueRouter)
 
@@ -14,14 +16,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
     path: '/nets',
@@ -52,7 +46,19 @@ const routes = [
     name: 'Login',
     component: Login,
     props: true
-  }
+  },
+  {
+    path: '/netmap',
+    name: 'NetMap',
+    component: NetMap,
+    props: true
+  },
+  {
+    path: '/chart',
+    name: 'Chart',
+    component: Chart,
+    props: true
+  },
 
 ]
 
